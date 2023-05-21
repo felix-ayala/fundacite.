@@ -10,6 +10,11 @@
 @section('content')
     <div class="card">
         <div class="card-body">
+            <div class="d-flex mb-2" style="justify-content:end; gap:1px">
+                <button class="btn btn-primary float-right" id="print_button"><i class="fa fa-print"></i></button>
+                <button class="btn btn-danger float-right" id="export_pdf_button"><i class="fa fa-file-pdf"></i></button>
+                <button class="btn btn-secondary " id="export_excel_button"><i class="fa fa-file-excel"></i></button>
+            </div>
             <table id="permissions-table" class="table table-bordered table-striped">
                 <thead>
                     <tr>
@@ -27,7 +32,7 @@
     <script>
        
        $(function () {
-            $('#permissions-table').DataTable({
+        var table = $('#permissions-table').DataTable({
                 processing: true,
                 serverSide: true,
                 ajax: '{!! route('permissions.index') !!}',
@@ -35,6 +40,21 @@
                     { data: 'id', name: 'id' },
                     { data: 'name', name: 'name', className:'mx-auto' },
                     { data: 'action', name: 'action', orderable: false, searchable: false, className:'d-flex justify-content-center' },
+                ],
+                buttons: [
+                    'print',
+                    {
+                        extend: 'pdfHtml5',
+                        exportOptions: {
+                            columns: [0, 1, 2]
+                        }
+                    },
+                    {
+                        extend: 'excelHtml5',
+                        exportOptions: {
+                            columns: [0, 1, 2]
+                        }
+                    }
                 ],
                 language: {
                     "sProcessing": "Procesando...",
@@ -61,6 +81,20 @@
                     }
                 }
             });
+
+            $('#print_button').on('click', function() {
+                table.button('0').trigger();
+            });
+
+            $('#export_pdf_button').on('click', function() {
+                table.button('1').trigger();
+            });
+
+            $('#export_excel_button').on('click', function() {
+                table.button('2').trigger();
+            });
         });
+
+       
     </script>
 @stop
