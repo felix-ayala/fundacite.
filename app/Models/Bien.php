@@ -18,6 +18,7 @@ class Bien extends Model
         'marca',
         'modelo',
         'estatus',
+        'cantidad',
         'sede_id',
         'categoria_id',
     ];

@@ -30,7 +30,7 @@
     <script>
        
        $(function () {
-            $('#movimientos-table').DataTable({
+        var table =$('#movimientos-table').DataTable({
                 processing: true,
                 serverSide: true,
                 ajax: '{!! route('movimientos.index') !!}',

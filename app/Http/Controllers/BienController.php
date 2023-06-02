@@ -65,7 +65,6 @@ class BienController extends Controller
             'sede_id' => 'required',
             'categoria_id' => 'required',
         ]);
-
         try {
             DB::beginTransaction();
 
@@ -76,13 +75,14 @@ class BienController extends Controller
                 'marca' => $request->marca,
                 'modelo' => $request->modelo,
                 'estatus' => $request->estatus,
+                'cantidad' => $request->cantidad,
                 'sede_id' => $request->sede_id,
                 'categoria_id' => $request->categoria_id,
             ]);
 
             // Registrar el movimiento de tipo "Entrada"
             $movimiento = Movimiento::create([
-                'fecha' => now(),
+                'fecha_movimiento' => now(),
                 'descripcion' => 'Entrada de bien: ' . $bien->nombre,
                 'tipo_movimiento' => 'Entrada',
                 'usuario_id' => Auth::id(),
@@ -139,6 +139,7 @@ class BienController extends Controller
                 'marca' => $request->marca,
                 'modelo' => $request->modelo,
                 'estatus' => $request->estatus,
+                'cantidad' => $request->cantidad,
                 'sede_id' => $request->sede_id,
                 'categoria_id' => $request->categoria_id,
             ]);

@@ -33,7 +33,7 @@
     <script>
        
        $(function () {
-            $('#usuarios-table').DataTable({
+        var table =$('#usuarios-table').DataTable({
                 processing: true,
                 serverSide: true,
                 ajax: '{!! route('users.index') !!}',

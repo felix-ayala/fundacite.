@@ -2,46 +2,42 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Bien;
 use App\Models\Movimiento;
-use App\Models\Ubicacion;
+use App\Models\Bien;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
 {
-   
     public function index()
     {
+        // Obtener las últimas entradas
         $movimientos = Movimiento::count();
         $bienes = Bien::count();
-        $entradas = Movimiento::where('tipo_movimiento', 'entrada')->orderBy('created_at', 'desc')->limit(5)->get();
+        $entradas = Movimiento::where('tipo_movimiento', 'Entrada')
+            ->orderBy('created_at', 'desc')
+            ->take(5)
+            ->get();
 
-        $ubicaciones = Ubicacion::all();
-        $bienes_por_ubicacion = [];
+        // Obtener las últimas salidas
+        $salidas = Movimiento::whereIn('tipo_movimiento', ['Uso', 'Alquiler', 'Transformacion', 'Consumo', 'Venta'])
+            ->orderBy('created_at', 'desc')
+            ->take(5)
+            ->get();
 
-        // Obtener el número de bienes por ubicación
-        // foreach ($ubicaciones as $ubicacion) {
-        //     $bienes_por_ubicacion[] = [
-        //         'nombre' => $ubicacion->nombre,
-        //         'count_bienes' => Bien::where('ubicacion_id', $ubicacion->id)->count()
-        //     ];
-        // }
-        return view('home', compact('movimientos', 'bienes','entradas','ubicaciones','bienes_por_ubicacion'));
-    }
+        // Obtener los datos para la gráfica de últimas entradas
+        $entradasData = Movimiento::where('tipo_movimiento', 'Entrada')
+            ->groupBy('fecha_movimiento')
+            ->selectRaw('DATE(fecha_movimiento) as fecha, COUNT(*) as count_entradas')
+            ->orderBy('fecha_movimiento')
+            ->get();
 
-    public function data()
-    {
-        $ubicaciones = Ubicacion::all();
-        $bienes_por_ubicacion = [];
+        // Obtener los datos para la gráfica de últimas salidas
+        $salidasData = Movimiento::whereIn('tipo_movimiento', ['Uso', 'Alquiler', 'Transformacion', 'Consumo', 'Venta'])
+            ->groupBy('fecha_movimiento')
+            ->selectRaw('DATE(fecha_movimiento) as fecha, COUNT(*) as count_salidas')
+            ->orderBy('fecha_movimiento')
+            ->get();
 
-        // Obtener el número de bienes por ubicación
-        // foreach ($ubicaciones as $ubicacion) {
-        //     $bienes_por_ubicacion[] = [
-        //         'nombre' => $ubicacion->nombre,
-        //         'count_bienes' => Bien::where('ubicacion_id', $ubicacion->id)->count()
-        //     ];
-        // }
-
-        return $bienes_por_ubicacion;
+        return view('home', compact('movimientos','bienes','entradas', 'salidas', 'entradasData', 'salidasData'));
     }
 }

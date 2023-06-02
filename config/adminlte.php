@@ -453,6 +453,12 @@ return [
                 ],
             ],
         ],
+        ['header' => 'REPORTES'],
+        [
+            'text'    => 'Reportes',
+            'icon'    => 'fas fa-file',
+            'route'=> 'reportes.index',
+        ],
     ],
 
     /*

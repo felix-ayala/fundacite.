@@ -38,7 +38,7 @@
     <script>
        
        $(function () {
-            $('#ubicaciones-table').DataTable({
+        var table =$('#ubicaciones-table').DataTable({
                 processing: true,
                 serverSide: true,
                 ajax: '{!! route('ubicaciones.index') !!}',

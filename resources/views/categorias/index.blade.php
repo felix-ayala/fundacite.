@@ -32,7 +32,7 @@
     <script>
        
        $(function () {
-            $('#categorias-table').DataTable({
+        var table =$('#categorias-table').DataTable({
                 processing: true,
                 serverSide: true,
                 ajax: '{!! route('categorias.index') !!}',

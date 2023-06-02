@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('modelo')->nullable();
             $table->string('marca')->nullable();
             $table->string('estatus');
+            $table->integer('cantidad')->default(1);
 
             $table->unsignedBigInteger('sede_id');
             $table->foreign('sede_id')->references('id')->on('sedes');

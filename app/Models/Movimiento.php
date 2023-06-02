@@ -16,15 +16,16 @@ class Movimiento extends Model
         'tipo_movimiento',
         'usuario_id',
         'bien_id',
+        'cantidad'
     ];
 
     public function usuario()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class,'usuario_id');
     }
 
-    public function bienes()
+    public function bien()
     {
-        return $this->hasMany(Bien::class);
+        return $this->belongsTo(Bien::class,'bien_id');
     }
 }

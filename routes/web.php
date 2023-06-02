@@ -9,6 +9,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\MovimientoController;
 use App\Http\Controllers\UbicacionController;
 use App\Http\Controllers\SedeController;
+use App\Http\Controllers\ReporteController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -44,6 +45,7 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('ubicaciones',UbicacionController::class)->except(['show']);
 
     Route::post('sedes/by-ubicacion', [BienController::class, 'getSedesByUbicacion'])->name('sedes.byUbicacion');
-
+    Route::get('/reportes', [ReporteController::class, 'index'])->name('reportes.index');
+    Route::post('/reportes/get', [ReporteController::class, 'getReporte'])->name('reportes.getReporte');
 
 });

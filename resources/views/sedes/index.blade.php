@@ -40,7 +40,7 @@
     <script>
        
        $(function () {
-            $('#sedes-table').DataTable({
+        var table =$('#sedes-table').DataTable({
                 processing: true,
                 serverSide: true,
                 ajax: '{!! route('sedes.index') !!}',

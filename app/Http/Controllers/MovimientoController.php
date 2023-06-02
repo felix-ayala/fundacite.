@@ -56,7 +56,12 @@ class MovimientoController extends Controller
             'tipo_movimiento' => $request->tipo_movimiento,
             'usuario_id' => $request->usuario_id,
             'bien_id' => $request->bien_id,
+            'cantidad' => $request->cantidad,
         ]);
+        $bien = Bien::find($request->bien_id);
+        $bien->cantidad = $bien->cantidad - $request->cantidad;
+        $bien->save();
+
 
         // Realizar acciones adicionales según el tipo de movimiento
         if ($request->tipo_movimiento == 'Alquiler' || $request->tipo_movimiento == 'Consumo') {

@@ -31,7 +31,7 @@
     <script>
        
        $(function () {
-            $('#roles-table').DataTable({
+        var table = $('#roles-table').DataTable({
                 processing: true,
                 serverSide: true,
                 ajax: '{!! route('roles.index') !!}',

@@ -36,7 +36,7 @@
     <script>
        
        $(function () {
-            $('#bienes-table').DataTable({
+        var table =$('#bienes-table').DataTable({
                 processing: true,
                 serverSide: true,
                 ajax: '{!! route('bienes.index') !!}',

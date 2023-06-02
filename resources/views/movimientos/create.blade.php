@@ -41,6 +41,14 @@
                             </select>
                         </div>
 
+                        <div class="form-group {{ $errors->has('cantidad') ? ' has-error' : '' }}">
+                            <label for="cantidad">Cantidad</label>
+                            <input type="number" class="form-control" id="cantidad" name="cantidad" value="{{ old('cantidad') }}" required>
+                            @if ($errors->has('cantidad'))
+                                <span class="help-block">{{ $errors->first('cantidad') }}</span>
+                            @endif
+                        </div>
+
                         <div id="fecha_final_field" class="form-group" style="display: none;">
                             <label for="fecha_final">Fecha Final</label>
                             <input type="date" class="form-control" id="fecha_final" name="fecha_final">
