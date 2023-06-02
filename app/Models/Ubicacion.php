@@ -16,8 +16,8 @@ class Ubicacion extends Model
         'descripcion',
     ];
 
-    public function bienes()
+    public function sedes()
     {
-        return $this->hasMany(Bien::class);
+        return $this->hasMany(Sede::class, 'ubicacion_id', 'id');
     }
 }

@@ -20,12 +20,12 @@ class DashboardController extends Controller
         $bienes_por_ubicacion = [];
 
         // Obtener el número de bienes por ubicación
-        foreach ($ubicaciones as $ubicacion) {
-            $bienes_por_ubicacion[] = [
-                'nombre' => $ubicacion->nombre,
-                'count_bienes' => Bien::where('ubicacion_id', $ubicacion->id)->count()
-            ];
-        }
+        // foreach ($ubicaciones as $ubicacion) {
+        //     $bienes_por_ubicacion[] = [
+        //         'nombre' => $ubicacion->nombre,
+        //         'count_bienes' => Bien::where('ubicacion_id', $ubicacion->id)->count()
+        //     ];
+        // }
         return view('home', compact('movimientos', 'bienes','entradas','ubicaciones','bienes_por_ubicacion'));
     }
 
@@ -35,12 +35,12 @@ class DashboardController extends Controller
         $bienes_por_ubicacion = [];
 
         // Obtener el número de bienes por ubicación
-        foreach ($ubicaciones as $ubicacion) {
-            $bienes_por_ubicacion[] = [
-                'nombre' => $ubicacion->nombre,
-                'count_bienes' => Bien::where('ubicacion_id', $ubicacion->id)->count()
-            ];
-        }
+        // foreach ($ubicaciones as $ubicacion) {
+        //     $bienes_por_ubicacion[] = [
+        //         'nombre' => $ubicacion->nombre,
+        //         'count_bienes' => Bien::where('ubicacion_id', $ubicacion->id)->count()
+        //     ];
+        // }
 
         return $bienes_por_ubicacion;
     }

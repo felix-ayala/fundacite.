@@ -14,13 +14,12 @@ return new class extends Migration
         Schema::create('movimientos', function (Blueprint $table) {
             $table->id();
             $table->dateTime('fecha_movimiento');
+            $table->date('fecha_final')->nullable();
             $table->string('tipo_movimiento');
             $table->unsignedBigInteger('bien_id');
             $table->foreign('bien_id')->references('id')->on('bienes');
             $table->unsignedBigInteger('usuario_id');
             $table->foreign('usuario_id')->references('id')->on('users');
-            $table->unsignedBigInteger('ubicacion_id');
-            $table->foreign('ubicacion_id')->references('id')->on('ubicaciones');
             $table->timestamps();
         });
     }

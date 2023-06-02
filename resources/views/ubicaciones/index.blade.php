@@ -7,14 +7,25 @@
 @stop
 
 @section('content')
+    @if(session('success'))
+    <div class="alert alert-success alert-dismissible">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+        {{ session('success') }}
+    </div>
+    @endif
     <div class="card">
         <div class="card-body">
+            <div class="d-flex mb-2" style="justify-content:end; gap:1px">
+                <button class="btn btn-primary float-right" id="print_button"><i class="fa fa-print"></i></button>
+                <button class="btn btn-danger float-right" id="export_pdf_button"><i class="fa fa-file-pdf"></i></button>
+                <button class="btn btn-secondary " id="export_excel_button"><i class="fa fa-file-excel"></i></button>
+            </div>
             <table id="ubicaciones-table" class="table table-bordered table-striped">
                 <thead>
                     <tr>
                         <th>ID</th>
                         <th>Nombre</th>
-                        <th>Descripción</th>
+                        {{-- <th>Descripción</th> --}}
                         <th>Acciones</th>
                     </tr>
                 </thead>
@@ -34,8 +45,23 @@
                 columns: [
                     { data: 'id', name: 'id' },
                     { data: 'nombre', name: 'nombre', className:'mx-auto' },
-                    { data: 'descripcion', name: 'descripcion' },
+                    // { data: 'descripcion', name: 'descripcion' },
                     { data: 'action', name: 'action', orderable: false, searchable: false, className:'d-flex justify-content-center' },
+                ],
+                buttons: [
+                    'print',
+                    {
+                        extend: 'pdfHtml5',
+                        exportOptions: {
+                            columns: [0, 1]
+                        }
+                    },
+                    {
+                        extend: 'excelHtml5',
+                        exportOptions: {
+                            columns: [0, 1]
+                        }
+                    }
                 ],
                 language: {
                     "sProcessing": "Procesando...",
@@ -61,6 +87,17 @@
                         "sSortDescending": ": Activar para ordenar la columna de manera descendente"
                     }
                 }
+            });
+            $('#print_button').on('click', function() {
+                table.button('0').trigger();
+            });
+
+            $('#export_pdf_button').on('click', function() {
+                table.button('1').trigger();
+            });
+
+            $('#export_excel_button').on('click', function() {
+                table.button('2').trigger();
             });
         });
     </script>

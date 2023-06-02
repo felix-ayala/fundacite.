@@ -7,5 +7,15 @@ use Illuminate\Database\Eloquent\Model;
 
 class Sede extends Model
 {
-    use HasFactory;
+    protected $fillable = [
+        'nombre',
+        'ubicacion_id',
+        'direccion',
+        'telefono',
+    ];
+
+    public function ubicacion()
+    {
+        return $this->belongsTo(Ubicacion::class, 'ubicacion_id');
+    }
 }

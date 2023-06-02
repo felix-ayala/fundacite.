@@ -1,12 +1,18 @@
 @extends('adminlte::page')
 
-@section('title', 'Roles')
+@section('title', 'Sedes')
 
 @section('content_header')
-    <h1>Roles</h1>
+    <h1>Sedes</h1>
 @stop
 
 @section('content')
+    @if(session('success'))
+    <div class="alert alert-success alert-dismissible">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+        {{ session('success') }}
+    </div>
+    @endif
     <div class="card">
         <div class="card-body">
             <div class="d-flex mb-2" style="justify-content:end; gap:1px">
@@ -14,11 +20,14 @@
                 <button class="btn btn-danger float-right" id="export_pdf_button"><i class="fa fa-file-pdf"></i></button>
                 <button class="btn btn-secondary " id="export_excel_button"><i class="fa fa-file-excel"></i></button>
             </div>
-            <table id="roles-table" class="table table-bordered table-striped">
+            <table id="sedes-table" class="table table-bordered table-striped">
                 <thead>
                     <tr>
                         <th>ID</th>
                         <th>Nombre</th>
+                        <th>Ubicacion</th>
+                        <th>Dirección</th>
+                        <th>Teléfono</th>
                         <th>Acciones</th>
                     </tr>
                 </thead>
@@ -31,13 +40,16 @@
     <script>
        
        $(function () {
-            $('#roles-table').DataTable({
+            $('#sedes-table').DataTable({
                 processing: true,
                 serverSide: true,
-                ajax: '{!! route('roles.index') !!}',
+                ajax: '{!! route('sedes.index') !!}',
                 columns: [
                     { data: 'id', name: 'id' },
-                    { data: 'name', name: 'name', className:'mx-auto' },
+                    { data: 'nombre', name: 'nombre', className:'mx-auto' },
+                    { data: 'ubicacion_id', name: 'ubicacion_id', className:'mx-auto' },
+                    { data: 'direccion', name: 'direccion' },
+                    { data: 'telefono', name: 'telefono' },
                     { data: 'action', name: 'action', orderable: false, searchable: false, className:'d-flex justify-content-center' },
                 ],
                 buttons: [
@@ -45,13 +57,13 @@
                     {
                         extend: 'pdfHtml5',
                         exportOptions: {
-                            columns: [0, 1, 2]
+                            columns: [0, 1, 2,3,4]
                         }
                     },
                     {
                         extend: 'excelHtml5',
                         exportOptions: {
-                            columns: [0, 1, 2]
+                            columns: [0, 1, 2,3,4]
                         }
                     }
                 ],

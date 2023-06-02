@@ -88,37 +88,74 @@
         </div>
     </div>
 </div>
-<div class="card">
-    <div class="card-header">
-      <h3 class="card-title">Últimas Entradas</h3>
+<div class="row">
+    <div class="col-md-6 col-xs-12 col-sm-12 col-lg-6">
+        <div class="card">
+            <div class="card-header">
+              <h3 class="card-title">Últimas Entradas</h3>
+            </div>
+            <div class="card-body">
+              <table class="table table-bordered">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Bien</th>
+                    <th>Ubicación</th>
+                    <th>Fecha de Entrada</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  @forelse ($entradas as $entrada)
+                  <tr>
+                    <td>{{ $entrada->id }}</td>
+                    <td>{{ $entrada->bien->nombre }}</td>
+                    <td>{{ $entrada->ubicacion->nombre }}</td>
+                    <td>{{ $entrada->created_at->format('d/m/Y H:i') }}</td>
+                  </tr> 
+                  @empty
+                     <tr>
+                        <td colspan="4" class="text-center">No existen entradas</td>
+                     </tr>
+                  @endforelse   
+                </tbody>
+              </table>
+            </div>
+        </div>
     </div>
-    <div class="card-body">
-      <table class="table table-bordered">
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Bien</th>
-            <th>Ubicación</th>
-            <th>Fecha de Entrada</th>
-          </tr>
-        </thead>
-        <tbody>
-          @forelse ($entradas as $entrada)
-          <tr>
-            <td>{{ $entrada->id }}</td>
-            <td>{{ $entrada->bien->nombre }}</td>
-            <td>{{ $entrada->ubicacion->nombre }}</td>
-            <td>{{ $entrada->created_at->format('d/m/Y H:i') }}</td>
-          </tr> 
-          @empty
-             <tr>
-                <td colspan="4">No existen entradas</td>
-             </tr>
-          @endforelse   
-        </tbody>
-      </table>
+    <div class="col-md-6 col-xs-12 col-sm-12 col-lg-6">
+        <div class="card">
+            <div class="card-header">
+              <h3 class="card-title">Últimas Salidas</h3>
+            </div>
+            <div class="card-body">
+              <table class="table table-bordered">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Bien</th>
+                    <th>Ubicación</th>
+                    <th>Fecha de Salida</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  @forelse ($entradas as $entrada)
+                  <tr>
+                    <td>{{ $entrada->id }}</td>
+                    <td>{{ $entrada->bien->nombre }}</td>
+                    <td>{{ $entrada->ubicacion->nombre }}</td>
+                    <td>{{ $entrada->created_at->format('d/m/Y H:i') }}</td>
+                  </tr> 
+                  @empty
+                     <tr>
+                        <td colspan="4" class="text-center">No existen salidas</td>
+                     </tr>
+                  @endforelse   
+                </tbody>
+              </table>
+            </div>
+          </div>
     </div>
-  </div>
+</div>
   
   @endsection
   @section('js')

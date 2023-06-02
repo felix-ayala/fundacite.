@@ -17,13 +17,13 @@ return new class extends Migration
             $table->foreign('categoria_id')->references('id')->on('categorias')->onDelete('cascade');
             $table->string('nombre');
             $table->string('descripcion')->nullable();
-            $table->string('numero_serie')->unique();
+            $table->string('codigo')->unique();
             $table->string('modelo')->nullable();
             $table->string('marca')->nullable();
-            $table->dateTime('fecha_ingreso');
-            $table->string('estado');
-            $table->unsignedBigInteger('ubicacion_id');
-            $table->foreign('ubicacion_id')->references('id')->on('ubicaciones');
+            $table->string('estatus');
+
+            $table->unsignedBigInteger('sede_id');
+            $table->foreign('sede_id')->references('id')->on('sedes');
             $table->timestamps();
         });
     }

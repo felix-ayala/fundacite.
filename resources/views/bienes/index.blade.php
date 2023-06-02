@@ -9,15 +9,20 @@
 @section('content')
     <div class="card">
         <div class="card-body">
+            <div class="d-flex mb-2" style="justify-content:end; gap:1px">
+                <button class="btn btn-primary float-right" id="print_button"><i class="fa fa-print"></i></button>
+                <button class="btn btn-danger float-right" id="export_pdf_button"><i class="fa fa-file-pdf"></i></button>
+                <button class="btn btn-secondary " id="export_excel_button"><i class="fa fa-file-excel"></i></button>
+            </div>
             <table id="bienes-table" class="table table-bordered table-striped">
                 <thead>
                     <tr>
                         <th>ID</th>
                         <th>Nombre</th>
-                        <th>Descripción</th>
-                        <th>Número serie</th>
-                        <th>Marca</th>
-                        <th>Modelo</th>
+                        <th>Categoria</th>
+                        <th>Codigo</th>
+                        <th>Ubicación</th>
+                        <th>Sede</th>
                         <th>Estado</th>
                         <th>Acciones</th>
                     </tr>
@@ -38,12 +43,27 @@
                 columns: [
                     { data: 'id', name: 'id' },
                     { data: 'nombre', name: 'nombre', className:'mx-auto' },
-                    { data: 'descripcion', name: 'descripcion' },
-                    { data: 'numero_serie', name: 'numero_serie' },
-                    { data: 'modelo', name: 'modelo' },
-                    { data: 'marca', name: 'marca' },
-                    { data: 'estado', name: 'estado' },
+                    { data: 'categoria_id', name: 'categoria_id' },
+                    { data: 'codigo', name: 'codigo' },
+                    { data: 'ubicacion_id', name: 'ubicacion_id' },
+                    { data: 'sede_id', name: 'sede_id' },
+                    { data: 'estatus', name: 'estatus' },
                     { data: 'action', name: 'action', orderable: false, searchable: false, className:'d-flex justify-content-center' },
+                ],
+                buttons: [
+                    'print',
+                    {
+                        extend: 'pdfHtml5',
+                        exportOptions: {
+                            columns: [0, 1, 2, 3, 4, 5, 6]
+                        }
+                    },
+                    {
+                        extend: 'excelHtml5',
+                        exportOptions: {
+                            columns: [0, 1, 2, 3, 4, 5, 6]
+                        }
+                    }
                 ],
                 language: {
                     "sProcessing": "Procesando...",
@@ -69,6 +89,17 @@
                         "sSortDescending": ": Activar para ordenar la columna de manera descendente"
                     }
                 }
+            });
+            $('#print_button').on('click', function() {
+                table.button('0').trigger();
+            });
+
+            $('#export_pdf_button').on('click', function() {
+                table.button('1').trigger();
+            });
+
+            $('#export_excel_button').on('click', function() {
+                table.button('2').trigger();
             });
         });
     </script>

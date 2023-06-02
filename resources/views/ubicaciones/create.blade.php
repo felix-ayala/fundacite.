@@ -8,14 +8,17 @@
 
 @section('content')
     <div class="row">
-        <div class="col-md-6">
-            <div class="box box-primary">
-                <div class="box-body">
+        <div class="col-md-12">
+            <div class="card card-primary">
+                <div class="card-body">
                     <form action="{{ route('ubicaciones.store') }}" method="POST">
                         {{ csrf_field() }}
                         <div class="form-group">
-                            <label for="name">Nombre de la ubicación</label>
-                            <input type="text" class="form-control" id="name" name="name" placeholder="Ingrese el nombre de la ubicación">
+                            <label for="nombre">Nombre de la ubicación</label>
+                            <input type="text" class="form-control" value="{{ old('nombre') }}" id="nombre" name="nombre" placeholder="Ingrese el nombre de la ubicación">
+                            @error('nombre')
+                                <div class="text-danger">{{ $message }}</div>
+                            @enderror
                         </div>
                         <button type="submit" class="btn btn-primary">Crear ubicación</button>
                     </form>

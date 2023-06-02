@@ -14,18 +14,21 @@ class Bien extends Model
     protected $fillable = [
         'codigo',
         'nombre',
+        'descripcion',
         'marca',
         'modelo',
-        'serie',
-        'descripcion',
         'estatus',
-        'ubicacion',
-        'fecha_ingreso',
-        'movimiento_id',
+        'sede_id',
+        'categoria_id',
     ];
 
-    public function movimiento()
+    public function categoria()
     {
-        return $this->belongsTo(Movimiento::class);
+        return $this->belongsTo(Categoria::class, 'categoria_id');
+    }
+    
+    public function sede()
+    {
+        return $this->belongsTo(Sede::class, 'sede_id');
     }
 }

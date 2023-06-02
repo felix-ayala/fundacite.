@@ -3,7 +3,6 @@
 @section('title', 'Permisos')
 
 @section('content_header')
-    <a class="btn btn-primary btn-sm float-right" href="{{ route('roles.create') }}">Agregar Permiso</a>
     <h1>Permisos</h1>
 @stop
 
@@ -46,13 +45,13 @@
                     {
                         extend: 'pdfHtml5',
                         exportOptions: {
-                            columns: [0, 1, 2]
+                            columns: [0, 1]
                         }
                     },
                     {
                         extend: 'excelHtml5',
                         exportOptions: {
-                            columns: [0, 1, 2]
+                            columns: [0, 1]
                         }
                     }
                 ],

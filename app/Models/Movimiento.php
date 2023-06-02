@@ -11,10 +11,11 @@ class Movimiento extends Model
     protected $table = 'movimientos';
 
     protected $fillable = [
-        'fecha',
+        'fecha_movimiento',
         'descripcion',
-        'tipo',
+        'tipo_movimiento',
         'usuario_id',
+        'bien_id',
     ];
 
     public function usuario()

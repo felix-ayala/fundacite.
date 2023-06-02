@@ -8,6 +8,7 @@ use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\MovimientoController;
 use App\Http\Controllers\UbicacionController;
+use App\Http\Controllers\SedeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -37,8 +38,12 @@ Route::middleware(['auth'])->group(function () {
 
     //TRANSCRIPTOR 
     Route::resource('movimientos',MovimientoController::class);
+    Route::resource('sedes',SedeController::class);
     Route::resource('categorias',CategoriaController::class);
     Route::resource('bienes',BienController::class);
-    Route::resource('ubicaciones',UbicacionController::class, ['parameters' => ['ubicacione' => 'ubicacion']]);
+    Route::resource('ubicaciones',UbicacionController::class)->except(['show']);
+
+    Route::post('sedes/by-ubicacion', [BienController::class, 'getSedesByUbicacion'])->name('sedes.byUbicacion');
+
 
 });

@@ -39,9 +39,6 @@ class UbicacionController extends Controller
     {
         $request->validate([
             'nombre' => 'required',
-            'direccion' => 'required',
-            'ciudad' => 'required',
-            'pais' => 'required',
         ]);
     
         Ubicacion::create($request->all());
@@ -59,9 +56,6 @@ class UbicacionController extends Controller
     {
         $request->validate([
             'nombre' => 'required',
-            'direccion' => 'required',
-            'ciudad' => 'required',
-            'pais' => 'required',
         ]);
     
         $ubicacion->update($request->all());
@@ -78,8 +72,4 @@ class UbicacionController extends Controller
                         ->with('success','Ubicación eliminada correctamente.');
     }
 
-    public function show(Ubicacion $ubicacion)
-    {
-        return view('ubicaciones.show',compact('ubicacion'));
-    }
 }

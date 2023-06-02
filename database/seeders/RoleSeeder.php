@@ -135,7 +135,7 @@ class RoleSeeder extends Seeder
         Permission::create([
             'name' => 'ubicaciones.edit',
             'description' => 'Editar Ubicación'
-        ])->syncRoles([$rol_admin,$rol_user]);
+        ])->syncRoles([$rol_admin]);
         
         Permission::create([
             'name' => 'ubicaciones.update',
@@ -145,6 +145,32 @@ class RoleSeeder extends Seeder
         Permission::create([
             'name' => 'ubicaciones.destroy',
             'description' => 'Eliminar Ubicación'
+        ])->syncRoles([$rol_admin,$rol_user]);
+        
+        // MODULO DE INSTITUCIONES
+        Permission::create([
+            'name' => 'sedes.index',
+            'description' => 'Ver Listado de Instituciones'
+        ])->syncRoles([$rol_admin,$rol_user]);
+        
+        Permission::create([
+            'name' => 'sedes.create',
+            'description' => 'Crear Institución'
+        ])->syncRoles([$rol_admin]);
+        
+        Permission::create([
+            'name' => 'sedes.edit',
+            'description' => 'Editar Institución'
+        ])->syncRoles([$rol_admin]);
+        
+        Permission::create([
+            'name' => 'sedes.update',
+            'description' => 'Actualizar Institución'
+        ])->syncRoles([$rol_admin]);
+       
+        Permission::create([
+            'name' => 'sedes.destroy',
+            'description' => 'Eliminar Institución'
         ])->syncRoles([$rol_admin,$rol_user]);
         
         // MODULO DE CATEGORIAS

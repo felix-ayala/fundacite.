@@ -193,7 +193,7 @@ return [
     'classes_content_header' => '',
     'classes_content' => '',
     'classes_sidebar' => 'sidebar-dark-primary elevation-4',
-    'classes_sidebar_nav' => '',
+    'classes_sidebar_nav' => 'nav-child-indent',
     'classes_topnav' => 'navbar-white navbar-light',
     'classes_topnav_nav' => 'navbar-expand',
     'classes_topnav_container' => 'container',
@@ -353,21 +353,21 @@ return [
             ],
         ],
         [
-            'text'       => 'Equipos',
-            'icon' => 'fas fa-toolbox',
-            'can'    => 'bienes.index',
+            'text'       => 'Instituciones',
+            'icon' => 'fas fa-building ',
+            'can'    => 'sedes.index',
             'submenu' => [
                 [
-                    'text'  => 'Registrar equipo',
-                    'icon'  => 'fas fa-plus',
-                    'route' => 'bienes.create',
-                    'can'   => 'bienes.create',
+                    'text' => 'Registrar institución',
+                    'icon'    => 'fas fa-plus',
+                    'route'  => 'sedes.create',
+                    'can'  => 'sedes.create',
                 ],
                 [
-                    'text'    => 'Ver equipos',
+                    'text'    => 'Ver instituciones',
                     'icon'    => 'fas fa-list',
-                    'route'   => 'bienes.index',
-                    'can'   => 'bienes.index',
+                    'route'   => 'sedes.index',
+                    'can'   => 'sedes.index',
                 ],
             ],
         ],
@@ -390,6 +390,25 @@ return [
                 ],
             ],
         ],
+        [
+            'text'       => 'Equipos',
+            'icon' => 'fas fa-toolbox',
+            'can'    => 'bienes.index',
+            'submenu' => [
+                [
+                    'text'  => 'Registrar equipo',
+                    'icon'  => 'fas fa-plus',
+                    'route' => 'bienes.create',
+                    'can'   => 'bienes.create',
+                ],
+                [
+                    'text'    => 'Ver equipos',
+                    'icon'    => 'fas fa-list',
+                    'route'   => 'bienes.index',
+                    'can'   => 'bienes.index',
+                ],
+            ],
+        ], 
         [
             'text'   => 'Usuarios',
             'icon'   => 'fas fa-users',
@@ -537,16 +556,16 @@ return [
             ],
         ],
         'Select2' => [
-            'active' => false,
+            'active' => true,
             'files' => [
                 [
                     'type' => 'js',
-                    'asset' => false,
+                    'asset' => true,
                     'location' => '//cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js',
                 ],
                 [
                     'type' => 'css',
-                    'asset' => false,
+                    'asset' => true,
                     'location' => '//cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.css',
                 ],
             ],

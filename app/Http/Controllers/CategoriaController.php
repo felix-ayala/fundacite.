@@ -15,9 +15,6 @@ class CategoriaController extends Controller
             $data = Categoria::latest()->get();
             return Datatables::of($data)
                 ->addIndexColumn()
-                ->editColumn('ubicacion_id', function ($row) {
-                    return $row->ubicacion->nombre;
-                })
                 ->addColumn('action', function($row){
                        $btn = '<a href="'.route('categorias.edit', $row->id).'" class="edit btn btn-primary btn-sm"><i class="fas fa-edit"></i></a>';
                        $btn .= '&nbsp;&nbsp;';
@@ -32,7 +29,6 @@ class CategoriaController extends Controller
                 ->make(true);
         }
         return view('categorias.index');
-        $categorias = Categoria::all();
     }
 
     public function create()
@@ -44,7 +40,6 @@ class CategoriaController extends Controller
     {
         $request->validate([
             'nombre' => 'required|unique:categorias',
-            'descripcion' => 'required',
         ]);
 
         Categoria::create([
@@ -64,7 +59,6 @@ class CategoriaController extends Controller
     {
         $request->validate([
             'nombre' => ['required', Rule::unique('categorias')->ignore($categoria->id)],
-            'descripcion' => 'required',
         ]);
 
         $categoria->update([

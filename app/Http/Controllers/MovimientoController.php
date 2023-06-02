@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Bien;
 use App\Models\Movimiento;
+use App\Models\Ubicacion;
 use Illuminate\Http\Request;
 use DataTables;
+use Carbon\Carbon;
 
 class MovimientoController extends Controller
 {
@@ -36,7 +38,8 @@ class MovimientoController extends Controller
     public function create()
     {
         $bienes = Bien::all();
-        return view('movimientos.create', compact('bienes'));
+        $ubicaciones = Ubicacion::all();
+        return view('movimientos.create', compact('bienes','ubicaciones'));
     }
 
     public function store(Request $request)
@@ -44,24 +47,37 @@ class MovimientoController extends Controller
         $request->validate([
             'bien_id' => 'required',
             'tipo_movimiento' => 'required',
-            'cantidad' => 'required|numeric|min:1'
         ]);
 
-        $movimiento = new Movimiento();
-        $movimiento->bien_id = $request->input('bien_id');
-        $movimiento->tipo_movimiento = $request->input('tipo_movimiento');
-        $movimiento->cantidad = $request->input('cantidad');
-        $movimiento->descripcion = $request->input('descripcion');
-        $movimiento->save();
+        // Crear el Movimiento
+        $movimiento = Movimiento::create([
+            'fecha_movimiento' => now(),
+            'descripcion' => $request->descripcion,
+            'tipo_movimiento' => $request->tipo_movimiento,
+            'usuario_id' => $request->usuario_id,
+            'bien_id' => $request->bien_id,
+        ]);
 
-        // Actualizar cantidad de bien en función del tipo de movimiento
-        $bien = Bien::find($request->input('bien_id'));
-        if ($request->input('tipo_movimiento') == 'entrada') {
-            $bien->cantidad += $request->input('cantidad');
-        } else {
-            $bien->cantidad -= $request->input('cantidad');
+        // Realizar acciones adicionales según el tipo de movimiento
+        if ($request->tipo_movimiento == 'Alquiler' || $request->tipo_movimiento == 'Consumo') {
+            $movimiento->fecha_final = $request->fecha_final;
+            $movimiento->save();
+        } elseif ($request->tipo_movimiento == 'Uso') {
+
+            $movimiento->fecha_final = Carbon::now()->addDay();
+            $movimiento->save();
+
+        } elseif ($request->tipo_movimiento == 'Transformacion') {
+            // Actualizar el estatus del bien a "inactivo"
+            $bien = Bien::find($request->bien_id);
+            $bien->sede_id = $request->sede_id;
+            $bien->save();
+        } elseif ($request->tipo_movimiento == 'Venta') {
+            // Actualizar el estatus del bien a "inactivo"
+            $bien = Bien::find($request->bien_id);
+            $bien->estatus = 'Inactivo';
+            $bien->save();
         }
-        $bien->save();
 
         return redirect()->route('movimientos.index')->with('success', 'Movimiento registrado exitosamente.');
     }
