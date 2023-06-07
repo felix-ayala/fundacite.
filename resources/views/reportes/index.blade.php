@@ -16,9 +16,10 @@
                     <label for="tipo_movimiento">Tipo de Movimiento</label>
                     <select class="form-control" id="tipo_movimiento" name="tipo_movimiento">
                         <option value="">Todos</option>
+                        <option value="Entrada">Entrada</option>
                         <option value="Alquiler">Alquiler</option>
                         <option value="Uso">Uso</option>
-                        <option value="Transformacion">Transformación</option>
+                        <option value="Transferencia">Transferencia</option>
                         <option value="Consumo">Consumo</option>
                         <option value="Venta">Venta</option>
                     </select>

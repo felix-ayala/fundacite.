@@ -18,6 +18,15 @@ class MovimientoController extends Controller
             $data = Movimiento::latest()->get();
             return Datatables::of($data)
                 ->addIndexColumn()
+                ->editColumn('bien_id', function ($row) {
+                    return $row->bien->nombre;
+                })
+                ->editColumn('usuario_id', function ($row) {
+                    return $row->usuario->name;
+                })
+                ->editColumn('ubicacion_id', function ($row) {
+                    return !empty($row->sede_id) ? $row->sede->ubicacion->nombre.' - '. $row->sede->nombre : $row->bien->sede->ubicacion->nombre.' - '. $row->bien->sede->nombre;
+                })
                 ->addColumn('action', function($row){
                        $btn = '<a href="'.route('movimientos.edit', $row->id).'" class="edit btn btn-primary btn-sm"><i class="fas fa-edit"></i></a>';
                        $btn .= '&nbsp;&nbsp;';
@@ -54,7 +63,7 @@ class MovimientoController extends Controller
             'fecha_movimiento' => now(),
             'descripcion' => $request->descripcion,
             'tipo_movimiento' => $request->tipo_movimiento,
-            'usuario_id' => $request->usuario_id,
+            'usuario_id' => auth()->user()->id,
             'bien_id' => $request->bien_id,
             'cantidad' => $request->cantidad,
         ]);
@@ -72,15 +81,18 @@ class MovimientoController extends Controller
             $movimiento->fecha_final = Carbon::now()->addDay();
             $movimiento->save();
 
-        } elseif ($request->tipo_movimiento == 'Transformacion') {
+        } elseif ($request->tipo_movimiento == 'Transferencia') {
             // Actualizar el estatus del bien a "inactivo"
             $bien = Bien::find($request->bien_id);
             $bien->sede_id = $request->sede_id;
             $bien->save();
+
+            $movimiento->sede_id = $request->sede_id;
+            $movimiento->save();
         } elseif ($request->tipo_movimiento == 'Venta') {
-            // Actualizar el estatus del bien a "inactivo"
+            // Actualizar el estatus del bien a "VENDIDO"
             $bien = Bien::find($request->bien_id);
-            $bien->estatus = 'Inactivo';
+            $bien->estatus = 'VENDIDO';
             $bien->save();
         }
 

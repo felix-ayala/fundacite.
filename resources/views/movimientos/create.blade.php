@@ -5,7 +5,6 @@
 @section('content_header')
     <h1>Registrar Movimiento</h1>
 @stop
-
 @section('content')
     <div class="row">
         <div class="col-md-12">
@@ -25,16 +24,16 @@
                                 <option value="">Seleccione un tipo de movimiento</option>
                                 <option value="Alquiler">Alquiler</option>
                                 <option value="Uso">Uso</option>
-                                <option value="Transformacion">Transformación</option>
+                                <option value="Transferencia">Transferencia</option>
                                 <option value="Consumo">Consumo</option>
                                 <option value="Venta">Venta</option>
                             </select>
                         </div>
 
                         <div class="form-group">
-                            <label for="bien_id">Bien</label>
-                            <select name="bien_id" id="bien_id" class="form-control select2">
-                                <option value="-1">Seleccione un bien</option>
+                            <label for="bien_id">Equipo</label>
+                            <select name="bien_id" id="bien_id" class="form-control select2 select2-height my-5">
+                                <option value="-1">Seleccione un equipo</option>
                                 @foreach ($bienes as $bien)
                                     <option value="{{ $bien->id }}">{{ $bien->nombre }}</option>
                                 @endforeach
@@ -81,10 +80,11 @@
         </div>
     </div>
 @stop
-
 @section('js')
     <script>
         $(document).ready(function() {
+            $(".select2").select2();
+
             $('#tipo_movimiento').on('change', function() {
                 var tipoMovimiento = $(this).val();
 
@@ -94,7 +94,7 @@
                     $('#fecha_final_field').hide();
                 }
 
-                if (tipoMovimiento === 'Transformacion') {
+                if (tipoMovimiento === 'Transferencia') {
                     $('#ubicacion_sede_fields').show();
                     $('#ubicacion_id').prop('required', true);
                     $('#sede_id').prop('required', true);

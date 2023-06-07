@@ -77,7 +77,7 @@
                             </div>
 
                             <div class="form-group col-6{{ $errors->has('estatus') ? ' has-error' : '' }}">
-                                <label for="estatus">Categoría</label>
+                                <label for="estatus">Estado</label>
                                 <select class="form-control" id="estatus" name="estatus">
                                     <option value="">Seleccione una estatus</option>
                                     <option value="ACTIVO">ACTIVO</option>

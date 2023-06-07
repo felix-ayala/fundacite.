@@ -15,6 +15,7 @@ class Movimiento extends Model
         'descripcion',
         'tipo_movimiento',
         'usuario_id',
+        'sede_id',
         'bien_id',
         'cantidad'
     ];
@@ -27,5 +28,10 @@ class Movimiento extends Model
     public function bien()
     {
         return $this->belongsTo(Bien::class,'bien_id');
+    }
+
+    public function sede()
+    {
+        return $this->belongsTo(Sede::class, 'sede_id');
     }
 }

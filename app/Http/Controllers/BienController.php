@@ -86,6 +86,7 @@ class BienController extends Controller
                 'descripcion' => 'Entrada de bien: ' . $bien->nombre,
                 'tipo_movimiento' => 'Entrada',
                 'usuario_id' => Auth::id(),
+                'sede_id' => $request->sede_id,
                 'bien_id' => $bien->id,
             ]);
 

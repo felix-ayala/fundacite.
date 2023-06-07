@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->dateTime('fecha_movimiento');
             $table->date('fecha_final')->nullable();
+            $table->unsignedBigInteger('sede_id')->nullable();
+            $table->foreign('sede_id')->references('id')->on('sedes');
             $table->string('descripcion');
             $table->string('tipo_movimiento');
             $table->integer('cantidad')->default(1);
