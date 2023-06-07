@@ -19,7 +19,7 @@ class DashboardController extends Controller
             ->get();
 
         // Obtener las últimas salidas
-        $salidas = Movimiento::whereIn('tipo_movimiento', ['Uso', 'Alquiler', 'Transformacion', 'Consumo', 'Venta'])
+        $salidas = Movimiento::whereIn('tipo_movimiento', ['Uso', 'Alquiler', 'Transferencia', 'Consumo', 'Venta'])
             ->orderBy('created_at', 'desc')
             ->take(5)
             ->get();
@@ -32,7 +32,7 @@ class DashboardController extends Controller
             ->get();
 
         // Obtener los datos para la gráfica de últimas salidas
-        $salidasData = Movimiento::whereIn('tipo_movimiento', ['Uso', 'Alquiler', 'Transformacion', 'Consumo', 'Venta'])
+        $salidasData = Movimiento::whereIn('tipo_movimiento', ['Uso', 'Alquiler', 'Transferencia', 'Consumo', 'Venta'])
             ->groupBy('fecha_movimiento')
             ->selectRaw('DATE(fecha_movimiento) as fecha, COUNT(*) as count_salidas')
             ->orderBy('fecha_movimiento')

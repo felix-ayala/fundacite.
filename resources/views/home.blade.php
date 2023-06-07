@@ -108,7 +108,7 @@
                             <tr>
                                 <td>{{ $entrada->id }}</td>
                                 <td>{{ $entrada->bien->nombre }}</td>
-                                <td>{{ $entrada->descripcion }}</td>
+                                <td>{{ $entrada->sede->nombre }}</td>
                                 <td>{{ $entrada->fecha_movimiento }}</td>
                             </tr>
                         @empty
@@ -141,8 +141,8 @@
                             <tr>
                                 <td>{{ $salida->id }}</td>
                                 <td>{{ $salida->bien->nombre }}</td>
-                                <td>{{ $salida->ubicacion->nombre }}</td>
-                                <td>{{ $salida->fecha_movimiento->format('d/m/Y H:i') }}</td>
+                                <td>{{ $salida->sede->nombre }}</td>
+                                <td>{{ $salida->fecha_movimiento }}</td>
                             </tr>
                         @empty
                             <tr>
